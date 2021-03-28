@@ -3,4 +3,4 @@
   import Products from "../components/Products/Products.svelte";
 </script>
 
-<Products />
+<Products title="our products" />
