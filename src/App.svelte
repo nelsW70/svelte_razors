@@ -11,7 +11,7 @@
 </script>
 
 <Router>
-	<nav>
+	<nav class="navbar">
 		<Link to="/">Home</Link>
 		<Link to="/about">About</Link>
 		<Link to="/products">Products</Link>
