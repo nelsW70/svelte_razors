@@ -1,8 +1,6 @@
 <script>
   // VARIABLES
   export let title = "";
-  // LIFECYCLES
-  import { onMount, onDestroy } from "svelte";
   // STORE
   import products from "../../stores/defaultProducts";
   // COMPONENTS
