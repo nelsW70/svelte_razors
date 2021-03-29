@@ -11,7 +11,7 @@
 	// COMPONENTS
 	import Navbar from "./components/Navbar/Navbar.svelte";
 	import Sidebar from "./components/Navbar/Sidebar.svelte";
-	// global store
+	// GLOBAL STORE
 	import globalStore from "./stores/globalStore";
 </script>
 
