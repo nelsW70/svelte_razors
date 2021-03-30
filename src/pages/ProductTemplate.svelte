@@ -2,6 +2,7 @@
   // STORES
   import products from "../stores/defaultProducts";
   import globalStore from "../stores/globalStore";
+  import { addToCart } from "../stores/cart";
   // COMPONENTS
   import Loading from "../components/Loading.svelte";
   // MODULES
@@ -34,7 +35,10 @@
         <p>{product.description}</p>
         <button
           class="btn btn-primary btn-block"
-          on:click={() => globalStore.toggleItem('cart', true)}>
+          on:click={() => {
+            addToCart(product);
+            globalStore.toggleItem('cart', true);
+          }}>
           add to cart
         </button>
       </article>
