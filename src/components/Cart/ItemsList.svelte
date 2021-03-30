@@ -1,11 +1,17 @@
 <script>
   // STORE
-  import cart, { cartTotal } from "../../stores/cart";
+  import cart, { cartTotal, setStorageCart } from "../../stores/cart";
   // COMPONENTS
   import Item from "./Item.svelte";
   // ANIMATIONS
   import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
+  // LIFECYCLE METHODS
+  import { afterUpdate } from "svelte";
+  // FUNCTIONS
+  afterUpdate(() => {
+    setStorageCart($cart);
+  });
 </script>
 
 <section class="cart-items">
