@@ -1,12 +1,33 @@
 <script>
+  // MODULES
+  import loginUser from "../strapi/loginUser";
+  import registerUser from "../strapi/registerUser";
+  // VARIABLES
   let email = "";
   let password = "";
   let username = "default username";
   let isMember = true;
   $: isEmpty = !email || !password || !username;
-
-  function toggleMember() {}
-  async function handleSubmit() {}
+  // FUNCTIONS
+  // toggle member
+  function toggleMember() {
+    isMember = !isMember;
+    if (!isMember) {
+      username = "";
+    } else {
+      username = "default username";
+    }
+  }
+  // handle submit
+  async function handleSubmit() {
+    let user;
+    if(isMember) {
+      loginUser()
+    }
+    else {
+      registerUser()
+    }
+  }
 </script>
 
 <section class="form">
