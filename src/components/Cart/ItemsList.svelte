@@ -1,12 +1,11 @@
 <script>
   // STORE
-  import cart from "../../stores/cart";
+  import cart, { cartTotal } from "../../stores/cart";
   // COMPONENTS
   import Item from "./Item.svelte";
   // ANIMATIONS
   import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
-  import About from "../../pages/About.svelte";
 </script>
 
 <section class="cart-items">
@@ -22,4 +21,5 @@
       <h2 class="empty-cart">is currently empty...</h2>
     {/each}
   </article>
+  <h3 class="cart-total">total : ${$cartTotal}</h3>
 </section>
