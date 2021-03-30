@@ -8,7 +8,7 @@
   // COMPONENTS
   import ItemsList from "./ItemsList.svelte";
   // VARIABLES
-  let user = false;
+  import user from "../../stores/user";
 </script>
 
 <div class="cart-overlay" transition:blur>
@@ -32,7 +32,7 @@
       <!-- end of cart items -->
       <!-- cart footer -->
       <div class="cart-footer">
-        {#if user}
+        {#if $user.jwt}
           <a
             href="/checkout"
             use:link
