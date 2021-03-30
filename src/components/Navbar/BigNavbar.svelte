@@ -1,6 +1,7 @@
 <script>
   // COMPONENTS
   import CartButton from "../Cart/CartButton.svelte";
+  import LoginLink from "../LoginLink.svelte";
   // MODULES
   import { link } from "svelte-routing";
   import links from "../../constants/links";
@@ -21,6 +22,7 @@
       </a>
       <!-- cart toggle -->
       <div class="nav-aside">
+        <LoginLink />
         <CartButton />
       </div>
     </div>
