@@ -5,6 +5,12 @@
   // STORES
   import user from "../stores/user";
   import { cartTotal } from "../stores/cart";
+  // LIFECYCLES
+  onMount(() => {
+    if (!user.jwt) {
+      navigate("/");
+    }
+  });
 </script>
 
 <h1>welcome to checkout page</h1>
