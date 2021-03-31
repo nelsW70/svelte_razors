@@ -2,9 +2,11 @@
   // MODULES
   import { onMount } from "svelte";
   import { navigate, link } from "svelte-routing";
+  // STRAPI
+  import submitOrder from "../strapi/submitOrder";
   // STORES
   import user from "../stores/user";
-  import { cartTotal } from "../stores/cart";
+  import cart, { cartTotal } from "../stores/cart";
   // VARIABLES
   let name = "";
   $: isEmpty = !name;
@@ -20,19 +22,21 @@
       navigate("/");
       return;
     }
-    stripe = Stripe(
-      "pk_test_51Ib6vfF7KFQQu5wiIsl0MEkxtugHba1I0b8HJJCoTHcOZP4dyenkhhQCkXG8bsq8eVxP5jSftmzWcpqE19N38FOH00RGehp4Ag"
-    );
-    elements = stripe.elements();
-    card = elements.create("card");
-    card.mount(cardElement);
-    card.addEventListener("change", function (event) {
-      if (event.error) {
-        cardErrors.textContent = event.error.message;
-      } else {
-        cardErrors.textContent = "";
-      }
-    });
+    if ($cartTotal > 0) {
+      stripe = Stripe(
+        "pk_test_51Ib6vfF7KFQQu5wiIsl0MEkxtugHba1I0b8HJJCoTHcOZP4dyenkhhQCkXG8bsq8eVxP5jSftmzWcpqE19N38FOH00RGehp4Ag"
+      );
+      elements = stripe.elements();
+      card = elements.create("card");
+      card.mount(cardElement);
+      card.addEventListener("change", function (event) {
+        if (event.error) {
+          cardErrors.textContent = event.error.message;
+        } else {
+          cardErrors.textContent = "";
+        }
+      });
+    }
   });
   // FUNCTIONS
   async function handleSubmit() {
@@ -41,11 +45,18 @@
       .catch((error) => console.log(error));
     const { token } = response;
     if (token) {
-      console.log(response);
+      const { id } = token;
+      let order = await submitOrder({
+        name,
+        total: $cartTotal,
+        items: $cart,
+        stripeTokenId: id,
+        userToken: $user.jwt,
+      });
+      console.log(order);
       // token.id
       // submit the order
     } else {
-      console.log(response);
     }
   }
 </script>
