@@ -7,9 +7,10 @@
   // STORES
   import user from "../stores/user";
   import cart, { cartTotal } from "../stores/cart";
+  import globalStore from "../stores/globalStore";
   // VARIABLES
   let name = "";
-  $: isEmpty = !name;
+  $: isEmpty = !name || $globalStore.alert;
   // stripe variables
   let cardElement;
   let cardErrors;
@@ -40,6 +41,7 @@
   });
   // FUNCTIONS
   async function handleSubmit() {
+    globalStore.toggleItem("alert", true, "submitting order... please wait!");
     let response = await stripe
       .createToken(card)
       .catch((error) => console.log(error));
@@ -53,11 +55,22 @@
         stripeTokenId: id,
         userToken: $user.jwt,
       });
-      console.log(order);
-
+      if (order) {
+        globalStore.toggleItem("alert", true, "your order is complete!");
+        cart.set([]);
+        localStorage.setItem("cart", JSON.stringify([]));
+        navigate("/");
+        return;
+      } else {
+        globalStore.toggleItem(
+          "alert",
+          true,
+          "there was an error with your order. please try again",
+          true
+        );
+      }
       // token.id
       // submit the order
-    } else {
     }
   }
 </script>
