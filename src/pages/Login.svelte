@@ -11,7 +11,7 @@
   let username = "default username";
   let isMember = true;
   // add alert
-  $: isEmpty = !email || !password || !username;
+  $: isEmpty = !email || !password || !username || $globalStore.alert;
   // FUNCTIONS
   // toggle member
   function toggleMember() {
@@ -24,7 +24,7 @@
   }
   // handle submit
   async function handleSubmit() {
-    // add alert
+    globalStore.toggleItem("alert", true, "loading data... please wait!");
     let user;
     if (isMember) {
       user = await loginUser({ email, password });
