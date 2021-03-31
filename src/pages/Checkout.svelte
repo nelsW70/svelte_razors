@@ -69,8 +69,6 @@
           true
         );
       }
-      // token.id
-      // submit the order
     }
   }
 </script>
