@@ -5,6 +5,7 @@
   // MODULES
   import { link } from "svelte-routing";
   // logout functionality
+  import { logoutUser } from "../stores/user";
 </script>
 
 {#if $user.jwt}
@@ -12,6 +13,7 @@
     href="/"
     class="logout-btn"
     on:click={() => {
+      logoutUser();
       globalStore.toggleItem('sidebar', false);
     }}>logout</a>
 {:else}
