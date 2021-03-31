@@ -3,12 +3,23 @@
   import { fly, fade } from "svelte/transition";
   // STORES
   import globalStore from "../stores/globalStore";
-  // LIFECYCLES
+  // MODULES
   import { onMount, onDestroy } from "svelte";
   // FUNCTIONS
   const handleClose = () => {
     globalStore.toggleItem("alert", false);
   };
+  // VARIABLES
+  let timeout;
+  // LIFECYCLES
+  onMount(() => {
+    timeout = setTimeout(() => {
+      globalStore.toggleItem("alert", false);
+    }, 3000);
+  });
+  onDestroy(() => {
+    clearTimeout(timeout);
+  });
 </script>
 
 <div
