@@ -21,11 +21,14 @@
   // handle submit
   async function handleSubmit() {
     let user;
-    if(isMember) {
-      loginUser()
+    if (isMember) {
+      loginUser();
+    } else {
+      user = await registerUser({ email, password, username });
     }
-    else {
-      registerUser()
+    console.log(user);
+    if (user) {
+    } else {
     }
   }
 </script>
