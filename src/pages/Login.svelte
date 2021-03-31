@@ -3,6 +3,8 @@
   import loginUser from "../strapi/loginUser";
   import registerUser from "../strapi/registerUser";
   import { navigate } from "svelte-routing";
+  // STORES
+  import globalStore from "../stores/globalStore";
   // VARIABLES
   let email = "";
   let password = "";
@@ -31,10 +33,19 @@
     }
     if (user) {
       navigate("/products");
-      // add alert
+      globalStore.toggleItem(
+        "alert",
+        true,
+        "welcome to shopping madness my friend!"
+      );
       return;
     }
-    // add alert
+    globalStore.toggleItem(
+      "alert",
+      true,
+      "there was an error! please try again",
+      true
+    );
   }
 </script>
 

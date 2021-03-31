@@ -7,16 +7,17 @@
   import { onMount, onDestroy } from "svelte";
   // FUNCTIONS
   const handleClose = () => {
-    console.log("alert closed");
+    globalStore.toggleItem("alert", false);
   };
 </script>
 
 <div
   class="alert-container"
   in:fly={{ y: -200, duration: 1000 }}
-  out:fade={{ duration: 0 }}>
+  out:fade={{ duration: 0 }}
+  class:alert-danger={$globalStore.alertDanger}>
   <div class="alert">
-    <p>some dummy text</p>
+    <p>{$globalStore.alertText}</p>
     <button class="alert-close" on:click={handleClose}>
       <i class="fas fa-window-close" />
     </button>
