@@ -7,14 +7,17 @@
   import { cartTotal } from "../stores/cart";
   // LIFECYCLES
   onMount(() => {
-    if (!user.jwt) {
+    if (!$user.jwt) {
       navigate("/");
     }
   });
 </script>
 
-<h1>welcome to checkout page</h1>
-<h1>welcome to checkout page</h1>
-<h1>welcome to checkout page</h1>
-<h1>welcome to checkout page</h1>
-<h1>welcome to checkout page</h1>
+{#if $cartTotal > 0}
+  <h1>form</h1>
+{:else}
+  <div class="checkout-empty">
+    <h2>your cart is empty</h2>
+    <a href="/products" use:link class="btn btn-primary"> fill it </a>
+  </div>
+{/if}
