@@ -35,8 +35,18 @@
     });
   });
   // FUNCTIONS
-  function handleSubmit() {
-    console.log("form submitted");
+  async function handleSubmit() {
+    let response = await stripe
+      .createToken(card)
+      .catch((error) => console.log(error));
+    const { token } = response;
+    if (token) {
+      console.log(response);
+      // token.id
+      // submit the order
+    } else {
+      console.log(response);
+    }
   }
 </script>
 
