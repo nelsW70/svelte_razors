@@ -5,16 +5,6 @@
   // STORES
   import user from "../stores/user";
   import { cartTotal } from "../stores/cart";
-  // LIFECYCLES
-  onMount(() => {
-    if (!$user.jwt) {
-      navigate("/");
-    }
-  });
-  // FUNCTIONS
-  function handleSubmit() {
-    console.log("form submitted");
-  }
   // VARIABLES
   let name = "";
   $: isEmpty = !name;
@@ -24,6 +14,30 @@
   let card;
   let stripe;
   let elements;
+  // LIFECYCLES
+  onMount(() => {
+    if (!$user.jwt) {
+      navigate("/");
+      return;
+    }
+    stripe = Stripe(
+      "pk_test_51Ib6vfF7KFQQu5wiIsl0MEkxtugHba1I0b8HJJCoTHcOZP4dyenkhhQCkXG8bsq8eVxP5jSftmzWcpqE19N38FOH00RGehp4Ag"
+    );
+    elements = stripe.elements();
+    card = elements.create("card");
+    card.mount(cardElement);
+    card.addEventListener("change", function (event) {
+      if (event.error) {
+        cardErrors.textContent = event.error.message;
+      } else {
+        cardErrors.textContent = "";
+      }
+    });
+  });
+  // FUNCTIONS
+  function handleSubmit() {
+    console.log("form submitted");
+  }
 </script>
 
 {#if $cartTotal > 0}
