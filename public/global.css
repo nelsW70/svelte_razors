@@ -721,3 +721,14 @@ Checkout
 .checkout-form button {
   margin-top: 1rem;
 }
+
+/* 
+====== 
+About
+======
+*/
+.about-section {
+  width: var(--smallWidth);
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+}
